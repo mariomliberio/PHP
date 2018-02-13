@@ -1,59 +1,35 @@
 <?php
-const BR = '<br />';
-
-function hey() {
-  return true;
-};
-
+const BR = "<br />";
+$mois = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"];
+print_r($mois);
+echo BR;
+echo $mois[2];
+echo BR;
+echo $mois [5];
+echo BR;
+$mois[7] = "Août";
+echo $mois[7];
+echo BR;
+$departements[1] = "Ain";
+$departements[3] = "Allier";
+$departements[7] = "Ardeche";
+$departements[15] = "Cantal";
+$departements[26] = "Drome";
+$departements[38] = "Isere";
+$departements[42] = "Loire";
+$departements[43] = "Haute-Loire";
+echo $departements[57] = "Moselle";
+$departements[63] = "Puy-de-Dome";
+$departements[69] = "Rhone";
+$departements[73] = "Savoie";
+$departements[74] = "Haute-Savoie";
+echo BR;
+echo $departements[69];
+echo BR;
+print_r($departements);
 echo BR;
 
-function repeat($abc){
-echo abc;
-};
-
-echo repeat();
-echo BR;
-
-function conc($r, $b){
-  echo $r.$b;
-};
-
-echo conc("rapid","fall");
-
-echo BR;
-
-function numb($z, $x){
-  if ($z > $x) {
-    echo "Le premier nombre est plus grand";
-  } else if ($z < $x){
-    echo "Le premier nombre est plus petit";
-  } else if ($z === $x){
-    echo "Les deux nombres sont identiques";
-  } else {
-    echo "Enter numbers pls";
-  };
-};
-
-echo numb(3, 5);
-
-echo BR;
-
-echo conc("blabla", 5);
-
-echo BR;
-
-function sentence($nom, $prenom, $age){
-  echo "Bonjour ", $nom ," ", $prenom , " , tu as ", $age, " ans.";
-}
-
-echo sentence("Liberio", "Mario", 22);
-
-echo BR;
-
-function agegender($year, $gender){
-  switch()
-};
-?>
+ ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -61,6 +37,5 @@ function agegender($year, $gender){
     <title></title>
   </head>
   <body>
-
   </body>
 </html>
