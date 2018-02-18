@@ -1,6 +1,6 @@
 <?php
 const BR = "<br />";
-echo 'Hello ' . $_GET["nom"] . " " . $_GET["prenom"] . "!"
+echo 'Hello ' . $_GET["nom"] . " " . $_GET["prenom"] . "!";
 
 echo BR;
 echo  'You are ' . $_GET["age"] . " years old!";
