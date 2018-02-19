@@ -218,4 +218,40 @@ Aimez-vous les frites ?
  ***
  **XSS: Cross Site Scripting**
 
- -  
+-  Consists in injecting HTML code with Javascript that executes on page load.
+    -  ```<p>Je sais comment tu t'appelles, hé hé. Tu t'appelles <?php echo $_POST['prenom']; ?> !</p>```
+- In the previous snippet of code, if HTML code is inserted into the form that will ```$_POST``` it will be submitted correctly.
+   - ```<p>Je sais comment tu t'appelles, hé hé. Tu t'appelles <strong>Badaboum</strong> !</p>```
+- So what is the problem with this?
+  - Using ```<script>``` tags, Javascript code can be inserted!!!
+- What can we do to avoid this?
+  - We can use the ```htmlspecialchars()``` function in order to transform ```<strong>``` tags into ```&lt;``` & ```&gt```. This will display the text correctly and avoid html code from executing.
+  - If we want to avoid tags overall we can just use the ```strip_tags()``` function.
+***
+**File Transfer**
+
+- Forms can also be used to upload files!
+- This is done in two steps:
+  - First, user arrives on html page and using a form decides which file to upload.
+  - PHP recieves the information from the form and saves the chosen file on the server.
+***
+**File Upload Form**
+
+- To allow file upload on a form, first we need to add the attribute ```enctype="multipart/form-data"``` to the form tag.
+  - This indicates that a file is to be uploaded through the form
+- Inside the form, we need to add an input. To make the input type a file we simply write that attribute to the input tag.
+  - ```<input type="file" name="monfichier" /><br />```
+- That is all!
+- A complete example: 
+```
+<form action="cible_envoi.php" method="post" enctype="multipart/form-data">
+        <p>
+                Formulaire d'envoi de fichier :<br />
+                <input type="file" name="monfichier" /><br />
+                <input type="submit" value="Envoyer le fichier" />
+        </p>
+</form>
+```
+***
+**PHP Upload**
+
