@@ -206,12 +206,12 @@ Aimez-vous les frites ?
 <input type="radio" name="frites" value="oui" id="oui" checked="checked" /> <label for="oui">Oui</label>
 <input type="radio" name="frites" value="non" id="non" /> <label for="non">Non</label>
 ```
-  - Can be used to give an option between two or several choices, however you can only choose one, if you wanted to allow to tick several options, you should use *Checkbox & Label*
-  - To create an option input ```type="radio"``` we must use the radio type.To set the value of the adjacent label, we must use the ```id=""``` attribute on the input and the ```for=""``` attribute on the label. Also to set an option ticked as default we must include the attribute ```checked="checked"```.
+    - Can be used to give an option between two or several choices, however you can only choose one, if you wanted to allow to tick several options, you should use *Checkbox & Label*
+    - To create an option input ```type="radio"``` we must use the radio type.To set the value of the adjacent label, we must use the ```id=""``` attribute on the input and the ```for=""``` attribute on the label. Also to set an option ticked as default we must include the attribute ```checked="checked"```.
 
 - *Hidden Inputs* -> ```<input type="hidden" name="pseudo" value="Mateo21" />```  Used to retain a *value* or *id* that the client will not see displayed on their screen, for example retaining a username value to display information relevant to that username.
 
 ***
 **XSS**
 
-- 
+-
