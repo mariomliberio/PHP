@@ -140,9 +140,10 @@ if (isset($_GET['prenom']) AND isset($_GET['nom'])){
     echo 'Bonjour ' . $_GET['prenom'] . ' ' . $_GET['nom'] . ' !';
 }
 else {
-    echo 'Il faut renseigner un nom et un prénom !';}?>```
+    echo 'Il faut renseigner un nom et un prénom !';}?>
+```
 
 
-  
+
 - This example above, checks if the *prenom* and *nom* parameters are set and either returns them or echo's a string requesting to submit a name and surname.
 -
