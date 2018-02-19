@@ -186,8 +186,8 @@ if (isset($_GET['prenom']) AND isset($_GET['nom']) AND isset($_GET['repeter'])){
 - *Input* -> ```<input type="text" />``` ```<input type="password" name="stuff"/>```
    - In the second example password is used to hide the text that is being input. The name is also specified ```name="stuff"```, this creates the variable.
    - We can also add the ```value=" "``` element to add a default text to our input.
-- *Textarea* -> ```<textarea name="message" rows="8" cols="45">Votre message ici.</textarea>```
- - Used for multiple line form inputs. We can adjust its ```rows="33"``` & ```cols=33``` to define the size of the input box.
+- *Textarea* -> ```<textarea name="message" rows="8" cols="45">Votre message ici.</textarea>```.
+  - Used for multiple line form inputs. We can adjust its ```rows="33"``` & ```cols=33``` to define the size of the input box.
 - *Select & Option* ->
 ```
 <select name="choix">
@@ -200,7 +200,7 @@ if (isset($_GET['prenom']) AND isset($_GET['nom']) AND isset($_GET['repeter'])){
 - *Checkbox & Label* -> ```<input type="checkbox" name="case" id="case" /> <label for="case">Ma case à cocher</label>```
   - To create a checkbox we need to assign it as a type of input ```input="checkbox"``` . To create options to check we must use the HTML ``` <label></label>``` Using the ```for=""``` attribute we can quickly link it to  an *id* for it as defined in the previous input example. This id is used when calling a ```$_GET[]``` or ```$_POST[]``` method.
 
-- *Option/Radio buttons* -> Can be used to give an option between two or several choices, however you can only choose one, if you wanted to allow to tick several options, you should use *Checkbox & Label*
+- *Option/Radio buttons* -> Can be used to give an option between two or several choices, however you can only choose one, if you wanted to allow to tick several options, you should use *Checkbox & Label*.
   - To create an option input ```type="radio"``` we must use the radio type.To set the value of the adjacent label, we must use the ```id=""``` attribute on the input and the ```for=""``` attribute on the label. Also to set an option ticked as default we must include the attribute ```checked="checked"```.
 ```
 Aimez-vous les frites ?
