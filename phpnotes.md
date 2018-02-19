@@ -209,6 +209,13 @@ Aimez-vous les frites ?
 - *Hidden Inputs* -> ```<input type="hidden" name="pseudo" value="Mateo21" />```  Used to retain a *value* or *id* that the client will not see displayed on their screen, for example retaining a username value to display information relevant to that username.
 
 ***
-**XSS**
+#### XSS
+***
+**Why are forms unsafe?**
 
--
+ - Forms are modifiable by any visitor therefore **never trust user input**. Someone can easily create a copy of your input page and modify to their arrangment while hosting it themselves. They can still target your page and create malicious code.
+
+ ***
+ **XSS: Cross Site Scripting**
+
+ -  
