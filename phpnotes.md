@@ -134,11 +134,11 @@ foreach($coordonnees as $cle => $element){
 
 - In PHP we have a function to test if a parameter is set to a value or not. This is the ```isset()``` function.
 - This can be used when a client attempts to access a parameter (through URL for example) in order to show the parameter or display another message if that parameter does not exist.
-- ```
-<?php
+- ``` <?php
 if (isset($_GET['prenom']) AND isset($_GET['nom'])){
     echo 'Bonjour ' . $_GET['prenom'] . ' ' . $_GET['nom'] . ' !';
 }
 else {
     echo 'Il faut renseigner un nom et un prénom !';}?>```
-- This example above, checkes if the *prenom* and *nom* parameters are set and either returns them or echo's a string requesting to submit a name and surname
+- This example above, checkes if the *prenom* and *nom* parameters are set and either returns them or echo's a string requesting to submit a name and surname.
+-
