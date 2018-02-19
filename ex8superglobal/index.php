@@ -10,6 +10,7 @@ echo BR;
 $_SESSION['name'] = 'Pist';
 $_SESSION['prenom'] = 'Ppist';
 $_SESSION['age'] = 69;
+
  ?>
 <!DOCTYPE html>
 <html>
@@ -19,11 +20,13 @@ $_SESSION['age'] = 69;
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <a href="index2.php">click</a>
-    <form class="" action="index.php" method="post">
+    <form class="" action="cookie.php" method="post">
       <input type="text" name="login" value="">
       <input type="text" name="pw" value="">
       <button type="submit" name="button">submit</button>
+    </form>
+    <form class="" action="index2.php" method="post">
+      <button type="submit" name="button">Index 2</button>
     </form>
   </body>
 </html>
