@@ -1,4 +1,4 @@
-# PHP NOTES
+## PHP NOTES
 ***
 #### Working With Arrays
 
@@ -116,3 +116,28 @@ foreach($coordonnees as $cle => $element){
 - This function can be inserted at any point in the document as long as its in between ```<?php ?>```
 ***
 #### Sending & Recieving data with URL's
+
+- We can add parameters & their values to an URL in order to load a specific piece of content on a page like so:  ```page.php?param1=valeur1&param2=valeur2&param3=valeur3```
+***
+**Creating a link with parameters**
+
+- We can link several **PHP** pages with parameters by simply inserting them into the *src* of our *html < a >* tag.
+- ```<a href="bonjour.php?nom=Dupont&amp;prenom=Jean">Dis-moi bonjour !</a>```
+  - Will link us to the *bonjour.php* page with parameters *nom* & *prenom* and values *Dupont* & *Jean*.
+***
+**Getting parameters with PHP**
+
+- To get parameters from a PHP document we simply use the ```$_GET[]``` array.
+- Using the previous exemple the returned data for ```$_GET[name]``` would be *Dupont*.
+***
+**Testing the presence of a parameter**
+
+- In PHP we have a function to test if a parameter is set to a value or not. This is the ```isset()``` function.
+- This can be used when a client attempts to access a parameter (through URL for example) in order to show the parameter or display another message if that parameter does not exist.
+```
+<?php
+if (isset($_GET['prenom']) AND isset($_GET['nom'])){
+    echo 'Bonjour ' . $_GET['prenom'] . ' ' . $_GET['nom'] . ' !';
+}
+else {
+    echo 'Il faut renseigner un nom et un prénom !';}?>```
