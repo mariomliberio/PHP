@@ -110,7 +110,7 @@ foreach($coordonnees as $cle => $element){
 
 ***
 #### Including HTML & PHP files
-
+***
 - A page can be split into different **PHP** files for each of its elements; for example: a *navbar.php*, a *footer.php* & a *main.php*
 - This can be done by using the ```include()``` function.
 - This function can be inserted at any point in the document as long as its in between ```<?php ?>```
@@ -141,3 +141,4 @@ if (isset($_GET['prenom']) AND isset($_GET['nom'])){
 }
 else {
     echo 'Il faut renseigner un nom et un prénom !';}?>```
+- This example above, checkes if the *prenom* and *nom* parameters are set and either returns them or echo's a string requesting to submit a name and surname
