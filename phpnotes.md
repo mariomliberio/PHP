@@ -170,7 +170,8 @@ if (isset($_GET['prenom']) AND isset($_GET['nom']) AND isset($_GET['repeter'])){
 **The action attribute**
 
 - In HTML forms we have an ```action=""``` attribute which defines, the page called by the form.
-``` <form action="user.php" method="post">
+```
+  <form action="user.php" method="post">
       Your name (again): <input type="text" name="name2">
       Your surname (again): <input type="text" name="surname2">
       <input type="submit">
