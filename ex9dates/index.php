@@ -35,21 +35,23 @@ echo BR;
 </head>
 <body>
 <form class="" action="index.php" method="post">
+<label for="month">Month</label>
   <select class="" name="month">
-    <option value="january">January</option>
-    <option value="febuary">Febuary</option>
-    <option value="march">March</option>
-    <option value="april">April</option>
-    <option value="may">May</option>
-    <option value="june">June</option>
-    <option value="july">July</option>
-    <option value="august">August</option>
-    <option value="september">September</option>
-    <option value="october">October</option>
-    <option value="november">November</option>
-    <option value="december">December</option>
+    <option value="1">January</option>
+    <option value="2">Febuary</option>
+    <option value="3">March</option>
+    <option value="4">April</option>
+    <option value="5">May</option>
+    <option value="6">June</option>
+    <option value="7">July</option>
+    <option value="8">August</option>
+    <option value="9">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+    <option value="12">December</option>
   </select>
   <select class="" name="year">
+    <label for="year">Year</label>
     <option value="2018">2018</option>
     <option value="2017">2017</option>
     <option value="2016">2016</option>
