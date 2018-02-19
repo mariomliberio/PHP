@@ -188,15 +188,13 @@ if (isset($_GET['prenom']) AND isset($_GET['nom']) AND isset($_GET['repeter'])){
    - We can also add the ```value=" "``` element to add a default text to our input.
 - *Textarea* -> ```<textarea name="message" rows="8" cols="45">Votre message ici.</textarea>```.
   - Used for multiple line form inputs. We can adjust its ```rows="33"``` & ```cols=33``` to define the size of the input box.
-- *Select & Option* ->
+- *Select & Option* -> Can be used for scrolling lists, where there are multiple possible choices already defined, such as Gender or Year of Birth.
 ```
 <select name="choix">
     <option value="choix1">Choix 1</option>
     <option value="choix2">Choix 2</option>
 </select>
 ```
-  - Can be used for scrolling lists, where there are multiple possible choices already defined, such as Gender or Year of Birth.
-
 - *Checkbox & Label* -> ```<input type="checkbox" name="case" id="case" /> <label for="case">Ma case à cocher</label>```
   - To create a checkbox we need to assign it as a type of input ```input="checkbox"``` . To create options to check we must use the HTML ``` <label></label>``` Using the ```for=""``` attribute we can quickly link it to  an *id* for it as defined in the previous input example. This id is used when calling a ```$_GET[]``` or ```$_POST[]``` method.
 
