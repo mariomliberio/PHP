@@ -143,7 +143,36 @@ else {
     echo 'Il faut renseigner un nom et un prénom !';}?>
 ```
 
-
-
 - This example above, checks if the *prenom* and *nom* parameters are set and either returns them or echo's a string requesting to submit a name and surname.
--
+***
+**Controlling the value of parameters**
+- The following code snippet uses an iterator and *$repeter* variable to refer to that iterator.
+```<?php
+if (isset($_GET['prenom']) AND isset($_GET['nom']) AND isset($_GET['repeter'])){
+    for ($i = 0 ; $i < $_GET['repeter'] ; $i++){
+        echo 'Bonjour ' . $_GET['prenom'] . ' ' . $_GET['nom'] . ' !<br />';
+    }} else {
+   echo 'Il faut renseigner un nom, un prénom et un nombre de répétitions !';
+} ?>  
+```
+- Using a *$_GET* array to quantify an iterator is very dangerous practice, as anyone would be able to modify the URL to overload PHP and crash the web app.
+- However even in this bad practice, some precautions can be taken to avoid this.
+  - We can limit the iterator to a reasonable number therefore once it reaches it, execution stops.
+  - Or we can make sure another value type such as boolean or a string is not introduced which breaks our code.
+***
+#### Using forms with ```$_GET``` & ```$_POST``` .
+***
+**The Methods ```$_GET``` & ```$_POST```**
+
+- ```get``` is used for information transmited through the *URL*
+- ```post``` is used for information transmited through *forms*. !! This does not make them safer than ```get``` methods, we always have to verify if the requested values are *present* and *valid* !!
+***
+**The action attribute**
+
+- In HTML forms we have an ```action=""``` attribute which defines, the page called by the form.
+```<form action="user.php" method="post">
+      Your name (again): <input type="text" name="name2">
+      Your surname (again): <input type="text" name="surname2">
+      <input type="submit">
+  </form>
+```
