@@ -1,6 +1,7 @@
 ## PHP NOTES &#129300;
 
 - These notes were taken following the Openclassrooms PHP & MYSQL class.
+- A table of contents will be added once the notes are finished.
 ***
 #### Working With Arrays
 
