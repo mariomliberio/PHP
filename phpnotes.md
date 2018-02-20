@@ -389,3 +389,6 @@ fclose($monfichier);
 ***
 - To write to a file we only have one function: ```fputs()```.
 - This function will write the line that we type to a document. For example: ```<?php fputs($myfile, 'Text to write'); ?>```
+- However this is not as simple as it seems. The problem is not writing to a file but where we actually write this text. For example, if we opened a file with ```fopen()``` and then read it with ```fgets()``` if we now input an ```fputs()``` function, it will write at the end of the line we have just read. In order to be able to write at the beggining of the line we would have to use an ```fseek()``` function. Therefore if we wanted to write at the beggining of the line we have just read we would have to call the ```fseek()``` function like this ```fseek($myfile, 0)``` and **then** call the ```fputs()``` function.
+- To close this chapter it is important to note that these functions are only useful with small files. If we wanted to treat a lot of data, using a database would be much more conveninent.
+***
