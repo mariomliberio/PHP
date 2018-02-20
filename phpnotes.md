@@ -241,14 +241,14 @@ Aimez-vous les frites ?
 - To allow file upload on a form, first we need to add the attribute ```enctype="multipart/form-data"``` to the form tag.
   - This indicates that a file is to be uploaded through the form
 - Inside the form, we need to add an input. To make the input type a file we simply write that attribute to the input tag.
-  - ```<input type="file" name="monfichier" /><br />```
+  - ```<input type="file" name="filename" /><br />```
 - That is all!
-- A complete example: 
+- A complete example:
 ```
 <form action="cible_envoi.php" method="post" enctype="multipart/form-data">
         <p>
                 Formulaire d'envoi de fichier :<br />
-                <input type="file" name="monfichier" /><br />
+                <input type="file" name="filename" /><br />
                 <input type="submit" value="Envoyer le fichier" />
         </p>
 </form>
@@ -256,3 +256,39 @@ Aimez-vous les frites ?
 ***
 **PHP Upload**
 
+- As you can see from the example above the form points us to the *cible_envoi.php*. The moment the PHP page is executed, the file is stored on the server, however it is stored in a temporary file. It is up to the PHP code to determine, whether the file is desired or not.
+- Everytime a file is uploaded  a ```$_FILES[]``` variable is created. This variable is an array which can contain many different informations about the file.
+- Such as:
+  - ```$_FILES["filename"]["name"]``` Contains the name of the file uploaded by the user.
+  - ```$_FILES["filename"]["type"]``` Contains the filetype uploaded.
+  - ```$_FILES["filename"]["size"]``` Contains the size of the file uploaded in Octets. PHP limits max upload file size to 8 Mo.
+  - ```$_FILES["filename"]["tmp_name"].``` Contains the temporary placement of the file once its been uploaded until PHP determines whether to stock it or not.
+  - ```$_FILES["filename"]["error"].``` Contains an error code if file delivery has been unsuccesful.
+- A good method to determine whether a file should be stocked or not is to:
+  - Check if the file has been succesfully recieved through ```isset($_FILES["filename"]["error"])```.
+  - Check if the file does not surpass max file size ```$_FILES['filename']['size']```.
+  - Check if the file extension is the desired one ```$_FILES["filename"]["type"]```. The name can also be used to check filetype.
+  - Once these checks have been preformed we can now validate the file for upload!
+
+- Here is an example of code that checks a file upload, type and size and return a message if upload is successful:
+```
+<?php
+// Tests if file has been uploaded without errors
+if (isset($_FILES['filename']) AND $_FILES['filename']['error'] == 0)
+{
+        // Tests if file isnt too large
+        if ($_FILES['filename']['size'] <= 1000000)
+        {
+                // Tests if the file extension is authroized
+                $infosfichier = pathinfo($_FILES['filename']['name']);
+                $extension_upload = $infosfichier['extension'];
+                $extensions_authorized = array('jpg', 'jpeg', 'gif', 'png');
+                if (in_array($extension_upload, $extensions_authorized))
+                {
+                        //We can validate the file to be saved on the server
+                        move_uploaded_file($_FILES['filename']['tmp_name'], 'uploads/' . basename($_FILES['filename']['name']));
+                        echo "Upload has been succesful!";}}}?>
+```
+- The ``` basename()``` function is used to save only the file name, as upload will also contain the full file path on the uploaders computer.
+- This file upload script is a good basic start. However if the file name contains *accents* or *special characters*, this will cause problems. Also if a file uploaded has the *same name* as a previous file on the server it will be *overwritten*. The best practice is to *rename* and choose the file name so it remains coherent with the rest of files we stock on the server.
+***
