@@ -340,4 +340,15 @@ if (isset($_FILES['filename']) AND $_FILES['filename']['error'] == 0)
 - In this case the cookie contains the key ```"userlogin"```, the value ```"M@teo21"``` and the time frame of a year called with the ```time()``` function: ```time() + 365*24*3600```.
 ***
 **SECURING YOUR COOKIES WITH httpOnly**
--  
+-  It is recommended to use the ```httpOnly``` option in your cookie. This will make it inaccessible via Javascript and therefore reduce the chance of Cross site scripting.
+- The httpOnly option is the forth option that can be given to a cookie array, the previous example with httpOnly activated would look like this ```<?php setcookie('userlogin', 'M@teo21', time() + 365*24*3600, null, null, false, true); ?>```
+***
+**CREATING YOUR COOKIE BEFORE HTML**
+- Just like the ```session_start()``` array before cookies must be generated before any *HTML* is loaded onto the page.
+***
+**DISPLAYING YOUR COOKIE**
+- This is the simplest part. With a code snippet like this one ```<?php echo $_COOKIE['userlogin']; ?>``` we can display the value of a cookie at any point of an *HTML* document.
+***
+**MODIFYING AN EXISTING COOKIE**
+- To modify an already exisiting cookie, we simply need to call the ```setcookie()``` array. New information will overwrite a previous cookie.
+***
