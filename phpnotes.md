@@ -264,7 +264,7 @@ Aimez-vous les frites ?
   - ```$_FILES["filename"]["size"]``` Contains the size of the file uploaded in Octets. PHP limits max upload file size to 8 Mo.
   - ```$_FILES["filename"]["tmp_name"].``` Contains the temporary placement of the file once its been uploaded until PHP determines whether to stock it or not.
   - ```$_FILES["filename"]["error"].``` Contains an error code if file delivery has been unsuccesful.
-- A good method to determine whether a file should be stocked or not is to:
+- A good method to determine whether a file should be stored or not is to:
   - Check if the file has been succesfully recieved through ```isset($_FILES["filename"]["error"])```.
   - Check if the file does not surpass max file size ```$_FILES['filename']['size']```.
   - Check if the file extension is the desired one ```$_FILES["filename"]["type"]```. The name can also be used to check filetype.
@@ -304,9 +304,9 @@ if (isset($_FILES['filename']) AND $_FILES['filename']['error'] == 0)
 ***
 **MOST IMPORTANT SUPERGLOBALS**
 - ```$_SERVER``` are values sent by the server. They can be very useful as for example ```$_SERVER['REMOTE_ADDR']``` which gives us the *IP Address* of a client visiting our page.
-- ```$_ENV``` are environment variables given by the server. It is usually when dealing with Linux servers where we will find information stocked in this superglobal.
-- ```$_SESSION``` contains the session variables. These are variables which are stocked in the server the time that a visitor spends on our page.
-- ```$_COOKIE``` Contains the cookie information stocked on a user's computer. These allows us to remember for example a user username or password.
+- ```$_ENV``` are environment variables given by the server. It is usually when dealing with Linux servers where we will find information stored in this superglobal.
+- ```$_SESSION``` contains the session variables. These are variables which are stored in the server the time that a visitor spends on our page.
+- ```$_COOKIE``` Contains the cookie information stored on a user's computer. These allows us to remember for example a user username or password.
 - ```$_GET $_POST``` We've already covered these two in a past chapter.
 - ```$_FILES``` Contains the list of files which have been submitted in a prevoius form.
 ***
@@ -314,10 +314,30 @@ if (isset($_FILES['filename']) AND $_FILES['filename']['error'] == 0)
 ***
 **SESSIONS**
 - Sessions allow us to save variables on all the pages in a website.
-- How do Sessions work in *PHP*?
-  - First, a user arrives on your website. PHP generates a hexadecimal string ```PHPSESSID```. This is usually stocked in a cookie to save it across pages.
+- How do Sessions work in PHP?
+  - First, a user arrives on your website. PHP generates a hexadecimal string ```PHPSESSID```. This is usually stored in a cookie to save it across pages.
   - Once the session is generated and the session id assigned, we can create session variables which will be accesible from any page on the website. An example of a session variable would be ```$_SESSION["username"]```.
   - When the user leaves the website, the session variables are discarded. However it is not easy to know when a user has left a site, this is not automatically done when a user goes to another website or closes their browser, this is why we use logout buttons or create a timeout which after a defined amount of time will automatically close the session.   
 - While this might seem complicated, it is very easy to setup thanks to two functions ```session_start()``` & ```session_destroy()```.
 - ```session_start()``` launches the sessions superglobal, this function has to be called at every page **before** the HTML code, even the ```<!DOCTYPE>``` tag.
 - ```session_destroy()``` closes a user's session. This is automatically called when a timeout is defined and reached.
+***
+**WHY ARE SESSIONS USEFUL?**
+- We can use them to store *login* and *password* information, to transmit the specific information to a user or also to limit his access to certain information.
+- We can use them to store shopping choices on an e-commerce site.
+- Basically, we can use them to store anything that will be reused over different pages in a domain.
+***
+**WORKING WITH COOKIES**
+***
+**WHAT IS A COOKIE?**
+- A cookie is a small file stored locally on a user's computer. It allows us to retain information about that specific user. For example we can store a user's login in a cookie.
+- Cookies generally store one piece of information a time. If we want to store more than one info, we can generate another cookie.
+- Cookies usually have an expiry date, therefore they stock temporary information, their size is limited to a few KO therefore it is impossible to store a lot of information on them.
+***
+**WRITING A COOKIE**
+- Like a variable, cookies have a key and a value.
+- To create a cookie in PHP we use the ```setcookie()``` function. Generally, we give three *parameters* to this function, its key, value and the timeframe in which it will be active like in the following example: ```<?php setcookie('userlogin', 'M@teo21', time() + 365*24*3600); ?>```.
+- In this case the cookie contains the key ```"userlogin"```, the value ```"M@teo21"``` and the time frame of a year called with the ```time()``` function: ```time() + 365*24*3600```.
+***
+**SECURING YOUR COOKIES WITH httpOnly**
+-  
