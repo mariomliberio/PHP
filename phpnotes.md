@@ -352,3 +352,40 @@ if (isset($_FILES['filename']) AND $_FILES['filename']['error'] == 0)
 **MODIFYING AN EXISTING COOKIE**
 - To modify an already exisiting cookie, we simply need to call the ```setcookie()``` array. New information will overwrite a previous cookie.
 ***
+#### OPENING, READING & WRITING TO FILES
+***
+**USING fopen TO OPEN FILES**
+- The ```fopen()``` function is used to open files, It must contain two parameters, 1. the file name & 2. the execution type.
+- An example of an fopen function can be seen here:
+```
+$myfile = fopen('compteur.txt', 'r+');
+```
+- While the first parameter is self-explanatory the second one has a few different options depending on how we want to open the file.
+
+|Execution Mode|Description|
+|--------------|-----------|
+| "r" | Opens the file in read only mode |
+| "r+" | Opens the file in read & write mode |
+| "a" | Opens the file in write mode only. Also generates a file if nonexistant |
+| "a+" | Opens the file in read & write mode, generates it if nonexsistant |
+
+- After we have used ```fopen()``` to open (or create a file) we need to signal PHP to close it. We do this with ```fclose()``` and the variable we generated for ```fopen()``` as a parameter like so: ```fclose($myfile)```.
+***
+**READING AND WRITING TO FILES**
+- To read a file we have two options in PHP.
+1. Reading letter by letter with the ```fgetc()``` function.
+2. Reading line by line with the ```fgets()``` function.
+- ```fgets()``` is more commonly used as using ```fgetc()``` requires a loop and is more taxing on resources.
+- Let's assume we have a one line text file we want to read in our PHP document.
+```
+<?php
+$monfichier = fopen('compteur.txt', 'r+');
+$ligne = fgets($monfichier);
+fclose($monfichier);
+?>
+```
+- The code snippet above, would first open the file, then read the first line with ```fgets()``` and then close it.
+- If the text document is longer than one line we would have to loop the ```fgets()``` function.
+***
+- To write to a file we only have one function: ```fputs()```.
+- This function will write the line that we type to a document. For example: ```<?php fputs($myfile, 'Text to write'); ?>```
