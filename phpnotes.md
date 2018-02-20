@@ -307,6 +307,17 @@ if (isset($_FILES['filename']) AND $_FILES['filename']['error'] == 0)
 - ```$_ENV``` are environment variables given by the server. It is usually when dealing with Linux servers where we will find information stocked in this superglobal.
 - ```$_SESSION``` contains the session variables. These are variables which are stocked in the server the time that a visitor spends on our page.
 - ```$_COOKIE``` Contains the cookie information stocked on a user's computer. These allows us to remember for example a user username or password.
-- ```$_GET $_POST``` We've already covered these two in a past chapeter.
+- ```$_GET $_POST``` We've already covered these two in a past chapter.
 - ```$_FILES``` Contains the list of files which have been submitted in a prevoius form.
 ***
+#### SESSION & COOKIES
+***
+**SESSIONS**
+- Sessions allow us to save variables on all the pages in a website.
+- How do Sessions work in *PHP*?
+  - First, a user arrives on your website. PHP generates a hexadecimal string ```PHPSESSID```. This is usually stocked in a cookie to save it across pages.
+  - Once the session is generated and the session id assigned, we can create session variables which will be accesible from any page on the website. An example of a session variable would be ```$_SESSION["username"]```.
+  - When the user leaves the website, the session variables are discarded. However it is not easy to know when a user has left a site, this is not automatically done when a user goes to another website or closes their browser, this is why we use logout buttons or create a timeout which after a defined amount of time will automatically close the session.   
+- While this might seem complicated, it is very easy to setup thanks to two functions ```session_start()``` & ```session_destroy()```.
+- ```session_start()``` launches the sessions superglobal, this function has to be called at every page **before** the HTML code, even the ```<!DOCTYPE>``` tag.
+- ```session_destroy()``` closes a user's session. This is automatically called when a timeout is defined and reached.
