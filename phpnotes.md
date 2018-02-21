@@ -462,4 +462,29 @@ SELECT * FROM videogames
 - Let's look at each element individually:
   1. ```SELECT``` : Asks SQL to display a table
   2. ``` * ``` Selects all elements within that table, we could also specify SQL to only take one element, for example ```name```
-  3. ```FROM```: 
+  3. ```FROM```: Creates the link between the field and table names.
+  4. ```videogames```: Name of the table we want to select from.
+***
+**DISPLAYING A REQUEST RESPONSE**
+- The problem with this type of requests is that if we are working on a real database it will generate too many responses.
+- This is where the ```fetch()``` command comes into play. We usually loop ```fetch()``` inside a while function as ```fetch()``` will automatically place us at the first line, therefore the while function will allow us to go through the fetch call as many times as necessary.
+- Once this has been executed we will close the request using ```closecursor()```.
+***
+**Displaying only some content**
+- As we mentioned before we can select which elements of a table we want to display. For example if we wanted to see only the names of the games in the ```videogames``` table we would use the following code:
+``` SELECT name FROM videogames ```.
+```
+<?php
+try{$bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
+    }
+    catch(Exception $e){die('Error : '.$e->getMessage());
+    }
+$response = $bdd->query('SELECT name FROM videogames');
+while ($data = $response->fetch())
+{echo $data['name'] . '<br />';
+}
+$response->closeCursor();
+?>
+```
+- Above we can see a complete example of how this would look inside a PHP document.
+***
