@@ -471,7 +471,7 @@ SELECT * FROM videogames
 - Once this has been executed we will close the request using ```closecursor()```.
 ***
 **Displaying only some content**
-- As we mentioned before we can select which elements of a table we want to display. For example if we wanted to see only the names of the games in the ```videogames``` table we would use the following code:
+- As we mentioned before we can select which elements of a table we want to display. For example if we wanted to see only the names of the games in the ```videogames``` table we would use the following ```SQL``` code:
 ``` SELECT name FROM videogames ```.
 ```
 <?php
@@ -487,4 +487,12 @@ $response->closeCursor();
 ?>
 ```
 - Above we can see a complete example of how this would look inside a PHP document.
+***
+**SELECTION CRITERIA**
+- The best thing about *SQL* is how easily we can sort and categorize criteria. There are many diffrent words we can use to organize data in different ways. 
+- ```WHERE``` used to filter through tables. Expanding on the example above ```SELECT * FROM videogames WHERE owner='patrick'```. This will display all videogames that are owned by Patrick.
+- ```AND``` used to combine multiple conditions. Eg:```SELECT * FROM videogames WHERE owner='patrick' AND price < 20``` Will display all of Patrick's game that are cheaper than 20.
+- ```OR``` Similar to ```AND``` but only selects one of the two.
+- ```ORDER BY``` allows us to order our results. Eg:```SELECT * FROM videogames WHERE owner='patrick' ORDER BY price```. This will order in increasing fashion however if we want to order in a decreasing way we just need to add ```DESC``` and the end.
+- ```LIMIT``` allows us to select only a part of the results, this is quite useful as we usually only want to select some of the elements inside a table. We use two numbers to define the range we will use this option in as so: ```LIMIT 0, 20``` This example will select the first 20 elements of the table.
 ***
