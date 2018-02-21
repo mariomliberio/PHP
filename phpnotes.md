@@ -496,3 +496,32 @@ $response->closeCursor();
 - ```ORDER BY``` allows us to order our results. Eg:```SELECT * FROM videogames WHERE owner='patrick' ORDER BY price```. This will order in increasing fashion however if we want to order in a decreasing way we just need to add ```DESC``` and the end.
 - ```LIMIT``` allows us to select only a part of the results, this is quite useful as we usually only want to select some of the elements inside a table. We use two numbers to define the range we will use this option in as so: ```LIMIT 0, 20``` This example will select the first 20 elements of the table.
 ***
+**BUILDING REQUEST DEPENDING ON VARIABLES**
+- Bad practice: Inserting a variable inside an SQL request. If we insert a ```$_GET || $_POST``` request inside our SQL request this will create a major security flaw in our website. This is one of the practices for which PHP & SQL databases often get a bad rap. 
+- Instead of doing this we should used prepared requests with the ```prepare()``` argument. This is not only a more safe way of building requests with a variable but also a less taxing way on processing power. We should use ```prepare()``` instead of query, when working with variables inside the SQL request. 
+- Building on prevoius examples, this is how we should build a variable dependant SQL request:
+```
+<?php
+$req = $database->prepare('SELECT name FROM videogames WHERE owner = ? AND price <= ?');
+$req->execute(array($_GET['owner'], $_GET['price']));
+?> 
+```
+- As you can see, instead of inserting or ```$_GET``` request inside the variable, we first prepare it inserting in the place where our request would go a ```?```. We then execute the request with our ```$_GET``` requests in the next line. 
+- If the request contains a lot of variables we use nominative markers such as ```:owner || :price``` instead of ```?```.
+- With nominative requests, the example above would look like so:
+```
+<?php
+$req = $database->prepare('SELECT name, prix FROM videogames WHERE owner = :owner AND price = :price);
+$req->execute(array('owner' => $_GET['owner'], 'price' => $_GET['price']));
+?>
+```
+***
+**TRACKING DOWN BUGS**
+- When a SQL request fails, more often than not PHP will display a ```fetch()``` error. It is often not the fault of the ```fetch()``` statement in the code but a badly formulated SQL request.
+- To get more detailed error information, we need to add a statement at the end of our original ```PDO``` request. 
+- Our modified ```PDO``` request will look like this:
+```
+<?php
+$database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+?>
+```
