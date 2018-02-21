@@ -392,3 +392,74 @@ fclose($monfichier);
 - However this is not as simple as it seems. The problem is not writing to a file but where we actually write this text. For example, if we opened a file with ```fopen()``` and then read it with ```fgets()``` if we now input an ```fputs()``` function, it will write at the end of the line we have just read. In order to be able to write at the beggining of the line we would have to use an ```fseek()``` function. Therefore if we wanted to write at the beggining of the line we have just read we would have to call the ```fseek()``` function like this ```fseek($myfile, 0)``` and **then** call the ```fputs()``` function.
 - To close this chapter it is important to note that these functions are only useful with small files. If we wanted to treat a lot of data, using a database would be much more conveninent.
 ***
+#### SQL
+
+**SQL DATABASE STRUCTURE**
+
+- Databases are made up of a series of *tables*. 
+- Each table is in fact an array where columns are called *fields* and lines are called *entries*.
+- This data is stored in files, however normally we never open these files directly, it is more common to directly write **SQL** code inside PHP filling up the contents of our tables.
+***
+**GUI's such as PHPmyAdmin & SQL Browser**
+- Two main elements
+  1. List of Databases
+  2. Creating a new Database.
+- Adding elements to a new Database. First, choose a name for your field. 
+- Most important attributes for these fields are Name, type of data, size, index and auto-incrementation.
+***
+**Types of Data**
+- These are classed in different categories. The most interesting are:
+ 1. Numeric: Integers or decimals.
+ 2. Date and Time. Can be multiple dates & times.
+ 3. Strings: Contain strings of characters.
+ 4. Spatial: Used for space & place, especially interesting when working with cartographic data.
+- The most used categories are:
+  1. INT: Integers
+  2. VARCHAR: Short text, max 255 characters.
+  3. TEXT: Longer pieces of text.
+  4. DATE: Dates (D.M.Y).
+- Primary Keys are the unique identifiers for a piece of data in a table array. Each piece of info must have a unique primary id. Using auto increment for primary keys is considered good practice.
+***
+#### CONNECTING TO A DATABASE WITH PHP
+
+
+- PHP offers us mutiple ways to reach a database such as:
+  - The ```mysql_``` extension which allows us to connect and communicate with a MySQL database. This is the *legacy* option.
+  - The ```mysqli_``` extension which allows use to user newer functionalities when connecting to a MySQL database.
+  - The ```PDO``` extension which allows us to connect with any database.
+- In these notes we are gonna focus on the ```PDO``` extension as its the most versatile and will be written in the same way not depending on the type of database.
+***
+**Connecting to a MySQL database using PDO**
+- IF we have activated PDO, we can now connect to our SQL database.
+- To do this we are gonna need to define four pieces of information:
+  1. Host name: Is the address of the computer or server where the SQL database is located. If you are working on your local network this is ```localhost```.
+  2. Database name (dbname): The name of the database we want to connect to. For example purpose well call this database ```test```.
+  3. Login: Login name.
+  4. Password: Your password.
+- An example of a ```PDO``` call with these informations represented below:
+```
+$database = new PDO('mysql:host=localhost;dbname=test;charset=utf8','root', '');
+```
+- ```$database``` is an object (although it looks like a variable) which represents the connection to the database.
+***
+**Testing for errors**
+- If all info is correctly input, there should be nothing appearing on the screen. However if an error is found, PHP will throw an error code and the information referring to line and type of error.
+- However this can be dangerous! For example if an error is found on the line containing the password, PHP might send back to our users our admin password. In this type of situations it is better to test for an error beforehand in order to avoid critical safety problems. 
+- To do this we can use ```try{}``` and ```catch{}```. ```try{}``` will test the code for an error, and if it is found it will be trapped inside ```catch{}``` .
+***
+**CREATING QUERY'S**
+- To create a query we first create an object and equal it to our ```query()``` request. Using the previous ```$database``` object here is an example:
+```
+$response = $database->query('Insert your SQL request here');
+```
+***
+**SQL REQUESTS**
+- Here is an example request, we will go over each element and explain its functionality
+```
+SELECT * FROM videogames
+```
+- Translating this request to english is actually pretty simple, it says: Take everything present in the videogames table.
+- Let's look at each element individually:
+  1. ```SELECT``` : Asks SQL to display a table
+  2. ``` * ``` Selects all elements within that table, we could also specify SQL to only take one element, for example ```name```
+  3. ```FROM```: 
