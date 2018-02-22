@@ -525,3 +525,44 @@ $req->execute(array('owner' => $_GET['owner'], 'price' => $_GET['price']));
 $database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 ?>
 ```
+***
+#### WRITING DATA
+***
+**INSERT**
+- ```INSERT``` Allows us to add more data in a table.
+- ```INSERT INTO``` allows us to add an entry into a table. Here is an example:
+```
+INSERT INTO videogames(ID, name, owner, console, price, max_players, notes) VALUES('', 'Battlefield 1942', 'Patrick', 'PC', 45, 50, '2nd World War')
+```
+- We start with the ```INSERT INTO``` command, then the table name, in this case ```videogames()``` and inside we put the name of each field name we want to add info to. Then we follow it by ```VALUES()``` and the actual informations that we want to add to each field. 
+- The first parameter in value is empty because we have already implemented an ```auto_increment``` on the ```id``` field. 
+- We dont actually need to put the name of the fields we want to modify inside ```videogames()``` but it adds clarity. If we were to ignore this, the previous code would be just as functional and look like this:
+```
+INSERT INTO videogames VALUES('', 'Battlefield 1942', 'Patrick', 'PC', 45, 50, '2nd world war')
+```   
+***
+**USING INSERT IN PHP WITH ```exec()```**
+- Instead of using ```query()``` to request information like in the previous chapter, we use ```exec()``` to execute this SQL code.
+- The previous request would look like this inside PHP brackets:
+```
+$database -> exec("INSERT INTO videogames(ID, name, owner, console, price, max_players, notes) VALUES('', 'Battlefield 1942', 'Patrick', 'PC', 45, 50, '2nd World War')");
+```
+***
+**INSERTING VARIABLE DATA USING PREPARED REQUESTS**
+- Using prepared requests and variables, we will write the request in the same way as we showed in a previous chapeter. 
+```
+$req = $database -> exec("INSERT INTO videogames(ID, name, owner, console, price, max_players, notes) VALUES('', 'Battlefield 1942', 'Patrick', 'PC', 45, 50, '2nd World War')");
+$req->execute(array(
+    'name' => $name,
+    'owner' => $owner,
+    'console' => $console,
+    'price' => $price,
+    'max_players' => $max_players,
+    'comments' => $comments
+    ));
+ ```
+- We create an array where each field inside our database table is also equal to a variable of the same name. Like this we can use variables without directly inserting them into our SQL request which would create a major security flaw. 
+ ***
+**UPDATE: MODIFYING DATA**
+- In the last section we added Battlefield 1942 into our table. However we just realized that it is a 32 player game instead of 45 and the price nowadays has decreased down to 10 euro from 50.
+- In order to correct this information we are going to use the ```UPDATE``` command. 
