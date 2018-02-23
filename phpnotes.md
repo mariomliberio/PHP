@@ -565,4 +565,39 @@ $req->execute(array(
  ***
 **UPDATE: MODIFYING DATA**
 - In the last section we added Battlefield 1942 into our table. However we just realized that it is a 32 player game instead of 45 and the price nowadays has decreased down to 10 euro from 50.
-- In order to correct this information we are going to use the ```UPDATE``` command. 
+- In order to correct this information we are going to use the ```UPDATE``` command. Here is the example where we update the price and player info:
+``` 
+UPDATE videogames set price = 10, max_players = 32 WHERE ID = 51
+```
+- You may be wondering why we added the ``` WHERE ID = 51 ``` this allows us to indicate which entry we want to modify. Battlefield 1942 has been the 51'st entry into the table therefore we have to indicate this otherwise SQL wouldnt know which entry in the table to modify. 
+- If we want to change all the characteristics in one of the columns of the table we can also do that with ```UPDATE```, ```SET``` & ```WHERE```. For example if Florent bought all of Michel's games we would update the table like so:
+```
+UPDATE videogames SET owner = 'Florent' WHERE owner = 'Michel'
+```
+***
+**APPLYING UPDATE TO PHP**
+- We use ```execute()``` and ```prepare()``` to apply our SQL updates to our PHP code. As we explained before preparing our SQL code is the best way if we want to use variables which we can modify at a later point. An example would look like so:
+```
+<?php
+$req = $database->prepare('UPDATE videogames SET price = :nwprice, max_players = :nw_max_players WHERE name = :game_name');
+$req->execute(array(
+	'nwprice' => $nwprice,
+	'nw_max_players' => $nw_max_players,
+	'game_name' => $game_name
+	));
+?> 
+```
+***
+**USING ```DELETE``` TO DELETE DATA**
+- Using delete in SQL is pretty self explanatory, however only use it when you are sure that you are deleting the correct information! There is no Undo or go back function, therefore once you delete something it will be permanently deleted. 
+- For example if we wanted to delete the Battlefield 1942 we would use the following example:
+```
+DELETE FROM videogames WHERE name = "Battlefield 1942"
+```
+***
+**TREATING SQL ERRORS**
+- If we want to have more information than a ```fetch``` error concerning an SQL error  we have to specify ```errorinfo()```
+- ``` $reponse = $bdd->query('SELECT nom FROM jeux_video') or die(print_r($bdd->errorInfo())); ```
+***
+#### Mini Chat
+-  
