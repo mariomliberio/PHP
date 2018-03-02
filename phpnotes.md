@@ -563,7 +563,7 @@ $req->execute(array(
  ```
 - We create an array where each field inside our database table is also equal to a variable of the same name. Like this we can use variables without directly inserting them into our SQL request which would create a major security flaw. 
  ***
-**UPDATE: MODIFYING DATA**
+**```UPDATE```: MODIFYING DATA**
 - In the last section we added Battlefield 1942 into our table. However we just realized that it is a 32 player game instead of 45 and the price nowadays has decreased down to 10 euro from 50.
 - In order to correct this information we are going to use the ```UPDATE``` command. Here is the example where we update the price and player info:
 ``` 
@@ -575,7 +575,7 @@ UPDATE videogames set price = 10, max_players = 32 WHERE ID = 51
 UPDATE videogames SET owner = 'Florent' WHERE owner = 'Michel'
 ```
 ***
-**APPLYING UPDATE TO PHP**
+**APPLYING ```UPDATE``` TO PHP**
 - We use ```execute()``` and ```prepare()``` to apply our SQL updates to our PHP code. As we explained before preparing our SQL code is the best way if we want to use variables which we can modify at a later point. An example would look like so:
 ```
 <?php
@@ -599,5 +599,36 @@ DELETE FROM videogames WHERE name = "Battlefield 1942"
 - If we want to have more information than a ```fetch``` error concerning an SQL error  we have to specify ```errorinfo()```
 - ``` $reponse = $bdd->query('SELECT nom FROM jeux_video') or die(print_r($bdd->errorInfo())); ```
 ***
-#### Mini Chat
--  
+**SQL FUNCTIONS**
+- We have already gone over PHP functions however in this chapter we will go over *SQL* functions. 
+- SQL functions can be classed into two categories:
+  1. **Scalar functions**: These are functions which apply to all the entries in a field.
+  2. **Aggregate functions**: These are calculations which are supposed to return *_one_*  value.
+***
+**SCALAR FUNCTIONS**
+- A simple example scalar function: ```UPPER```. This example function will let us modify to uppercase, all the contents within a specific field. Here is an example use where our goal is to uppercase all the names of a videogames field: ```SELECT UPPER(name) from videogames```.
+- However, **THIS DOES NOT MODIFY THE SQL TABLE**. It only modifies the way information is relayed to PHP. It creates a virtual field that only exists for the time of this request.
+- It is advised to give a name (alias) to this virtual field, to facilitate further access to it. To do that we use the keyword ```AS```. If we gave a name of ```UPNAME``` to this virtual field, the request would look like so: ```SELECT UPPER(name) as UPNAME FROM videogames```.
+- We can use this in PHP to display all our videogame names in uppercase:
+```
+<?php 
+$response = $db->query(SELECT UPPER(name) as UPNAME FROM videogames);
+while ($data = $response->fetch()) {
+  echo $data['UPNAME'] . '<br />';
+}
+$response->closeCursor();
+?>
+```
+- Of course we can also get data from other fields with our SQL request without applying the ```UPNAME``` function to them. A version of the previous request with new columns for owner, platform and price without being applied the ```UPNAME``` function would look like so:
+```
+SELECT UPPER(name) as UPNAME, owner, console, price FROM videogames
+```
+- Now that we have explained what **Scalar functions** are we are going to review some of them with their functionality. 
+  1. ```UPPER()```: As explained before, transforms text to uppercase.
+  2. ```LOWER()```: Same but transforms to lowercase. 
+  3. ```LENGTH()```:  Counts the number of characters.
+  4. ```ROUND()```: Slightly different, takes two arguments, first the field (a decimal number) that we want to round and then the number of decimals to which the number should be rounded. If we wanted to round prices to 1 decimal for our ```videogames``` table, we would do it like so: ```SELECT ROUND(price, 1) AS roundedprice FROM videogames```.
+  5. There are many many more scalar functions, SQL docs offer good information on [numeric ones](https://dev.mysql.com/doc/refman/5.7/en/numeric-functions.html) and [string/character](https://dev.mysql.com/doc/refman/5.7/en/string-functions.html) based ones.
+***
+**AGGREGATE FUNCTIONS**
+- 
