@@ -654,4 +654,39 @@ $response -> closeCursor();
   4. ```MIN``` Same as ```MAX``` but returns the smallest value.
   5. ```COUNT``` allows us to count the number of entries in a field. The most common use is with the ```*``` parameter to count all the elements in a table. ```SELECT COUNT(*) AS numbergames FROM videogames``` We can also filter this request to count all of the items owned by a single person by adding ```WHERE owner='somename'```. If an entry is ```NULL``` it will be ignored by the ```COUNT()``` function.
  We can also use the keyword ```DISTINCT``` to count how many of a value there is in a field. For example in our videogames table Patrick and Florent appear numerous times as owners. Using the ```DISTINCT``` parameter we can find out how many different owners of videogames exist in our table: ```SELECT COUNT(DISTINCT owner) AS numberowners FROM videogames```
- - As we mentioned before, Aggregate functions cannot look into other fields when returning us with one value, however we can group data in order to return a more specific value. For example in our videogames table we could group our average prices  by console, therefore giving us a more clear view of which console is more expensive to collect for. We can do this through the use of the ```GROUP BY``` request.   
+ - As we mentioned before, Aggregate functions cannot look into other fields when returning us with one value, however we can group data in order to return a more specific value. For example in our videogames table we could group our average prices  by console, therefore giving us a more clear view of which console is more expensive to collect for. We can do this through the use of the ```GROUP BY``` request like so: ```SELECT AVG(price) AS avg_price, console FROM videogames GROUP BY console```
+ - This would return the average price sorted by game console and give us coherent information for reuse. If we wanted to do the same but instead of sorting by console, sorting by owner we would request like so: ```SELECT AVG(price) AS avg_price, owner FROM videogames  GROUP BY owner```
+ - ```HAVING``` is similar to ```WHERE``` however it acts once data has been regrouped, therefore filtering at the end of a request. For example using our previous ```GROUP BY console``` request we can use ```HAVING``` to show us those with a price under 10 euro like so: ```SELECT AVG(price) AS, avg_price, console FROM videogames GROUP BY console HAVING avg_price <= 10```
+ - So what is the difference between ```HAVING``` & ```WHERE``` since both allow us to filter our results? 
+ - ```WHERE``` acts before the grouping of data only selecting those that fulfill that condition while ```HAVING``` first groups all data and then acts to only display those that fulfill that condition. We can also combine the two for example using ```WHERE``` to select the owner and ```HAVING``` to only display the games under a certain price. ```SELECT AVG(price) AS avg_price, console FROM videogames WHERE owner='Patrick' HAVING avg_price <= 10```
+ ***
+ **Time in SQL**
+ -  SQL can stock time in many different ways depending on the usage that we wanna make of them. For example these are 5 different ways of stocking dates:
+  1. ```DATE``` stocks dates in format YYYY-MM-DD (Year-Month-Day)
+  2. ```TIME``` stocks a timestamp in format HH:MM:SS (Hour-Minute-Second)
+  3. ```DATETIME``` stocks the combination of ```DATE``` & ```TIME``` YYYY-MM-DD HH:MM:SS.
+  4. ```TIMESTAMP``` stores the numbers of seconds that have passed since 1 January 1970 at 0h 00m 00s.
+  5. ```YEAR``` stocks the year either in format YY or YYYY.
+
+- Dates in SQL are used as strings therefore we need to write them inside apostrophes ```'2012-11-15'```
+- There are many functions used to manipulate dates and time, these allow us to extract specific information from a date request. While we wont list them all and they can be found in the [MYSQL documentation](https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html) here are a few of the most common ones:
+  1. ```NOW()``` Allows us to obtain the current date and time. Eg. ```INSERT INTO chat(alias, message, date) VALUES('Mateo', 'Message!' NOW())```
+  2. ```CURDATE()``` & ```CURTIME()``` same as ```NOW()``` except returns only the date in first case and only the time in the second. 
+  3. ```DAY(), MONTH(), TIME(), HOUR(), MINUTE(), SECOND() ``` Self explanatory, extracts the specific time unit from a table.
+  4. ```DATE_FORMAT```  Allows you to adapt the date to the format that you want.  Eg. ```Select alias, message, DATE_FORMAT(date, '%d/%m/%y %Hh%imin%ss') AS date FROM chat``` would return us at current time 05/03/2018 14h23min33s.
+  5. ```DATE_ADD``` & ```DATE_SUB``` Add or substract dates. For example lets display an expiration date for a message. ```SELECT alias, message, DATE_ADD(date, INTERVAL 15 DAY) AS expiration_date FROM chat``` Will display alias, message & the time it was posted + the expiration date after 15 days. in this case DAY can be replaced by any other of the previous time units.
+***
+**JOINING TABLES**
+- One of the main features of MYSQL is the ability to use several tables at the same time and create links between them.
+- In the previous videogame table example, we were stocking the owner information inside the table, however if we also wanted to stock their family name, phone numbers and other info on the owners, it would be very repetitive to do it on the videogames table. That is why we will create another table called ```owners``` where we will stock the owners name, surname and phone number and once this is done we will link it with our videogames table. 
+- We will give each  owner on this owners table an auto incrementing id. Now all we have to do to link them is to add a column to our videogame table which uses the same owner id. However SQL will not know this relation has been created, we need to create a link between the two tables.
+- There are many ways to join two tables, but we will look at the two most common ones:
+  1. Internal. Only select data which corresponds on both tables
+  2. External. Will display data even if there is no corresponding field in both tables.
+- While internal joins are more strict and specific, external joins will be more complete as it will also display information that is not common to both tables.
+- With our owner/videogames table example an internal join would only show those owners which own videogames while an extarnal join would also show owners which do not have any videogames (```NULL```). 
+***
+**INTERNAL JOIN**
+- An internal join can be created with two words:
+  1. ```WHERE``` Old syntax, if you have the choice avoid.
+  2. ```JOIN``` New syntax, more efficient and usable.
