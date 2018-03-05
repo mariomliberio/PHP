@@ -102,7 +102,7 @@ foreach($coordonnees as $cle => $element){
 **Headers already sent by...**
 
 - **Headers** are the first informations that are sent to a client's browser upon connection. Therefore it has to be executed **before** any HTML is loaded.
-- There are several functions that send **headers** in PHP such as: ```header()``` ```sessionstart()``` ```sercookie()```
+- There are several functions that send **headers** in PHP such as: ```header()``` ```sessionstart()``` ```setcookie()```
 - These **Header** methods must always be sent at the begining of a PHP document. This is the best way to avoid this error.
 
 ***
@@ -690,3 +690,41 @@ $response -> closeCursor();
 - An internal join can be created with two words:
   1. ```WHERE``` Old syntax, if you have the choice avoid.
   2. ```JOIN``` New syntax, more efficient and usable.
+***
+**```WHERE```**
+- Using ```WHERE```: ``` SELECT videogames.name, owners.name FROM owners, videogames WHERE videogames.ownerid = owners.id```
+This will select the name of a videogame and the name of the owners in the case that both are present an equal on the table in the form of ownerid for the videogame table and id in the owner table.
+- To make a request like this more clear and straight forward we should use aliases. For example we can adapt the previous request to a new form that uses aliases:
+```
+SELECT videogames.name AS gamename, owners.name AS ownername FROM owners, videogames WHERE videogames.ownerid = owners.id
+```
+- We use ```AS``` for clarity however it is not necessary as long as we keep a space between the property we are selecting and its alias. ``` SELECT videogames.name gamename``` would work just fine.
+- We can even reduce the length of our request by using one letter aliases and ommiting AS. The previous request modified to be as short as possible would look like so:
+```
+SELECT v.name videogamename, o.name ownername
+FROM owners o, videogames v WHERE v.ownerid = o.id
+```
+***
+**```INNER JOIN```**
+- Building on the last shortened example we will adapt the request to the new syntax with ```JOIN```.
+- The last example we displayed would look like so when using ```JOIN```:
+```
+SELECT v.name videogamename, o.name ownername
+FROM owners o
+INNER JOIN videogames v
+ON v.ownerid = o.id
+```
+- In this example we get the data from a primary table, in this case ```owners``` and do an ```INNER JOIN``` with the ```videogames``` table. The link between the two tables is done on the next line thanks to ```ON v.ownerid = o.id``` since these two are supposed to be the same value.
+- After this we can add additional arguments such as ```WHERE v.console = "pc"``` and ```ORDER BY price DESC``` which would only show us the videogame names and owner names when the videogame is on PC and would be ordered with the highest price first, descending to the lowest price.
+***
+**```EXTERNAL JOIN```**
+- Two ways to create an external join: ```LEFT JOIN``` & ```RIGHT JOIN```.
+- ```LEFT JOIN```: For this example we will take our previous ```INNER JOIN``` and simply replace it by ```LEFT JOIN```
+```
+SELECT v.name videogamename, o.name ownername
+FROM owners o
+LEFT JOIN videogames v
+ON v.ownerid = o.id
+```
+- In this case, owners is the table on the left while video the one on the right. Therefore our ```LEFT JOIN``` instruction will take all the elements on the left even if they dont own videogames although they will have a ```v.name``` value of ```NULL```.
+- ```RIGHT JOIN``` : 
