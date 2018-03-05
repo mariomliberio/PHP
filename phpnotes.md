@@ -631,4 +631,27 @@ SELECT UPPER(name) as UPNAME, owner, console, price FROM videogames
   5. There are many many more scalar functions, SQL docs offer good information on [numeric ones](https://dev.mysql.com/doc/refman/5.7/en/numeric-functions.html) and [string/character](https://dev.mysql.com/doc/refman/5.7/en/string-functions.html) based ones.
 ***
 **AGGREGATE FUNCTIONS**
-- 
+- Rather than modifying values one by one as with Scalar functions, Aggregate functions will operate on multiple values but return only a *single* value. While for example a scalar function like ```ROUND``` will allow us to round each value in a table however ```AVG``` which is an aggregate function will return us only the Average value of all the items in a table. Let's use this function to find out the average price of all the videogames as we were using in the previous examples:
+```
+SELECT AVG(price) AS avg_price FROM videogames
+```
+- In PHP this request would look like so:
+```
+<?php 
+$response = $database -> query(SELECT AVG(price) AS avg_price FROM videogames);
+$data = $response->fetch();
+echo $data['avg_price'];
+$response -> closeCursor();
+?>  
+```
+- Since we will only get one number from ```$response``` there is no need to create a while loop as with scalar functions. 
+- Dont hesitate to use filters! For example we could adapt the same request to only show us the average price of the games owned by Patrick. ```SELECT AVG(price) AS avg_price FROM videogames WHERE owner='Patrick'```
+- Be careful to not use other fields in the table when using an aggregate function. For example the request ```SELECT AVG(price) AS avg_price, name FROM videogames``` makes no sense as we cannot select the average price from the Name field.
+- Here are some examples of **Aggregate Functions**:
+  1. ```AVG``` Calculates an average.
+  2. ```SUM``` Calculates a sum of values.
+  3. ```MAX``` Returns the largest/maximum value. For example to find our most expensive videogame we would request: ```SELECT MAX(price) AS max_price FROM videogames```
+  4. ```MIN``` Same as ```MAX``` but returns the smallest value.
+  5. ```COUNT``` allows us to count the number of entries in a field. The most common use is with the ```*``` parameter to count all the elements in a table. ```SELECT COUNT(*) AS numbergames FROM videogames``` We can also filter this request to count all of the items owned by a single person by adding ```WHERE owner='somename'```. If an entry is ```NULL``` it will be ignored by the ```COUNT()``` function.
+ We can also use the keyword ```DISTINCT``` to count how many of a value there is in a field. For example in our videogames table Patrick and Florent appear numerous times as owners. Using the ```DISTINCT``` parameter we can find out how many different owners of videogames exist in our table: ```SELECT COUNT(DISTINCT owner) AS numberowners FROM videogames```
+ - As we mentioned before, Aggregate functions cannot look into other fields when returning us with one value, however we can group data in order to return a more specific value. For example in our videogames table we could group our average prices  by console, therefore giving us a more clear view of which console is more expensive to collect for. We can do this through the use of the ```GROUP BY``` request.   
