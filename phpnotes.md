@@ -727,4 +727,4 @@ LEFT JOIN videogames v
 ON v.ownerid = o.id
 ```
 - In this case, owners is the table on the left while video the one on the right. Therefore our ```LEFT JOIN``` instruction will take all the elements on the left even if they dont own videogames although they will have a ```v.name``` value of ```NULL```.
-- ```RIGHT JOIN``` : 
+- ```RIGHT JOIN``` : Again we replace our previous ```INNER JOIN``` this time by a ```RIGHT JOIN``` Therefore our videogame table will be our primary. We will display all videogames even if they dont have a defined owner. You may wonder how is it possible to not have an owner and the two possible awnsers are that the input data for owner is not a string or that the owner is set as ```NULL``` therefore no owner.
